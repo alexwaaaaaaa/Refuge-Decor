@@ -1,20 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { Home, Layers, Box, ArrowRight, Sparkles } from "lucide-react";
-
-// Lazy-load RoomCanvas for performance
-const RoomCanvas = dynamic(() => import("./canvas/RoomCanvas"), {
-  ssr: false,
-});
+import { Home, Layers, Box, ArrowRight } from "lucide-react";
 
 export default function Services() {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const [is3DReady, setIs3DReady] = useState(false);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -140,36 +133,21 @@ export default function Services() {
             </div>
           </motion.div>
 
-          {/* Service 3: Virtual 3D Spatial Design (Live 3D Canvas) */}
+          {/* Service 3: Virtual 3D Spatial Design (Concept Preview) */}
           <motion.div
             variants={cardVariants}
             className="group flex flex-col h-full bg-[#F5EFE9]/25 hover:bg-[#F5EFE9]/60 border border-[#D8CBB8]/20 hover:border-[#D8CBB8]/50 rounded-2xl p-5 transition-all duration-500 shadow-sm hover:shadow-md"
           >
-            {/* 3D Canvas Container */}
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-[#FAF5F2] border border-[#D8CBB8]/15 cursor-grab active:cursor-grabbing select-none">
-              
-              {/* Poster Image while Canvas mounts */}
-              <div 
-                className={`absolute inset-0 transition-opacity duration-700 z-10 ${
-                  is3DReady ? "opacity-0 pointer-events-none" : "opacity-100"
-                }`}
-              >
-                <Image
-                  src="/images/service_3d.png"
-                  alt="Virtual 3D concept preview of a minimalist living space showing a sleek sofa and floor lamp in a warm plaster room"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Live 3D Scene */}
-              <RoomCanvas onCreated={() => setIs3DReady(true)} />
-
-              {/* Drag Hint overlay */}
-              <div className="absolute bottom-3 right-3 bg-[#1C1C1C]/80 backdrop-blur-sm px-3 py-1.5 rounded-md text-[9px] uppercase tracking-wider text-[#FAF5F2] font-sans font-semibold flex items-center gap-1.5 pointer-events-none z-20">
-                <Sparkles size={10} className="text-[#8C5A3C]" />
-                Drag to look around
-              </div>
+            {/* Concept Image Container */}
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-[#F5EFE9]">
+              <Image
+                src="/images/service_3d.png"
+                alt="Concept rendering of a staged living room"
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-[#FAF5F2]/5 pointer-events-none" />
             </div>
 
             <div className="flex-1 flex flex-col text-left">
@@ -178,7 +156,7 @@ export default function Services() {
                   <Box size={18} className="stroke-[1.5]" />
                 </div>
                 <span className="font-sans font-semibold text-[10px] tracking-wider uppercase">
-                  Immersive Spatial Walkthrough
+                  Spatial Concept Design
                 </span>
               </div>
 
@@ -187,14 +165,14 @@ export default function Services() {
               </h3>
 
               <p className="font-sans font-light text-[#78716C] text-sm leading-relaxed mb-6 flex-1">
-                Visualize scaling, shadows, layout adjustments, and material finishes inside a photorealistic in-browser 3D model of your space before any work begins.
+                A rendered concept preview — see the room&apos;s layout and mood before a single piece of furniture moves.
               </p>
 
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 font-sans font-semibold text-xs uppercase tracking-wider text-[#1C1C1C] hover:text-[#6B7051] transition-colors group-hover:gap-3"
               >
-                Start 3D Project
+                Inquire Design
                 <ArrowRight size={14} className="stroke-[1.5]" />
               </a>
             </div>
