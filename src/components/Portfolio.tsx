@@ -132,7 +132,7 @@ export default function Portfolio() {
         >
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => (
-              <motion.div
+              <motion.button
                 key={item.id}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -142,12 +142,12 @@ export default function Portfolio() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => setSelectedItem(item)}
-                className={`break-inside-avoid relative rounded-2xl overflow-hidden cursor-zoom-in group border border-[#D8CBB8]/25 shadow-sm hover:shadow-md transition-all duration-500 ${item.aspect} bg-[#F5EFE9] mb-6`}
+                className={`break-inside-avoid relative rounded-2xl overflow-hidden cursor-zoom-in group border border-[#D8CBB8]/25 shadow-sm hover:shadow-md transition-all duration-500 ${item.aspect} bg-[#F5EFE9] mb-6 focus-visible:ring-2 focus-visible:ring-[#6B7051] focus-visible:outline-none w-full text-left`}
               >
                 {/* Image */}
                 <Image
                   src={item.image}
-                  alt={item.title}
+                  alt={item.desc}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
@@ -163,7 +163,7 @@ export default function Portfolio() {
                     <Search size={14} className="stroke-[2] text-[#D8CBB8]" />
                   </h3>
                 </div>
-              </motion.div>
+              </motion.button>
             ))}
           </AnimatePresence>
         </motion.div>
@@ -198,10 +198,10 @@ export default function Portfolio() {
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Left: Image */}
-                <div className="md:w-3/5 bg-zinc-200 relative aspect-square md:aspect-auto md:min-h-[500px]">
+                <div className="md:w-3/5 bg-[#F5EFE9] relative aspect-square md:aspect-auto md:min-h-[500px]">
                   <Image
                     src={selectedItem.image}
-                    alt={selectedItem.title}
+                    alt={selectedItem.desc}
                     fill
                     className="object-cover"
                   />

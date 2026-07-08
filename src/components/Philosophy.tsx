@@ -1,18 +1,33 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 
-function AnimatedCounter({ value, suffix = "", decimals = 0 }: { value: number; suffix?: string; decimals?: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+function AnimatedCounter({
+  value,
+  suffix = "",
+  decimals = 0,
+  trigger,
+}: {
+  value: number;
+  suffix?: string;
+  decimals?: number;
+  trigger: boolean;
+}) {
+  const shouldReduceMotion = useReducedMotion();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!trigger) return;
+
+    if (shouldReduceMotion) {
+      setCount(value);
+      return;
+    }
 
     let startTime: number | null = null;
     const duration = 1.6; // seconds
+    let frameId: number;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -22,15 +37,20 @@ function AnimatedCounter({ value, suffix = "", decimals = 0 }: { value: number; 
       setCount(currentCount);
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        frameId = requestAnimationFrame(animate);
       }
     };
 
-    requestAnimationFrame(animate);
-  }, [isInView, value]);
+    frameId = requestAnimationFrame(animate);
+    return () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+    };
+  }, [trigger, value, shouldReduceMotion]);
 
   return (
-    <span ref={ref} className="font-serif text-4xl md:text-5xl text-[#1C1C1C] font-normal">
+    <span className="font-serif text-4xl md:text-5xl text-[#1C1C1C] font-normal">
       {count.toFixed(decimals)}
       {suffix}
     </span>
@@ -110,6 +130,7 @@ export default function Philosophy() {
                     value={stat.value}
                     suffix={stat.suffix}
                     decimals={stat.decimals || 0}
+                    trigger={isInView}
                   />
                   <span className="font-sans text-xs uppercase tracking-wider text-[#78716C]/60 font-semibold mt-2">
                     {stat.label}

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 // Lazy-load the 3D canvas component with SSR disabled
@@ -13,6 +13,7 @@ const HeroCanvas = dynamic(() => import("./canvas/HeroCanvas"), {
 
 export default function Hero() {
   const [is3DReady, setIs3DReady] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const headingText = "Your Space, Refined.";
   const words = headingText.split(" ");
@@ -22,32 +23,32 @@ export default function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: shouldReduceMotion ? 0 : 0.15,
+        delayChildren: shouldReduceMotion ? 0 : 0.2,
       },
     },
   };
 
   const wordVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.9,
+        duration: shouldReduceMotion ? 0.1 : 0.9,
         ease: [0.16, 1, 0.3, 1] as const, // premium expo ease
       },
     },
   };
 
   const contentVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.9,
-        delay: 0.8,
+        duration: shouldReduceMotion ? 0.1 : 0.9,
+        delay: shouldReduceMotion ? 0 : 0.8,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     },

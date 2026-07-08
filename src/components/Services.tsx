@@ -60,7 +60,7 @@ export default function Services() {
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-[#F5EFE9]">
               <Image
                 src="/images/service_staging.png"
-                alt="Real Estate Staging - Refuge Decor"
+                alt="Warm staged ranch living room with white oak chairs, a rustic wooden coffee table, and textured neutral linen elements"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
@@ -104,7 +104,7 @@ export default function Services() {
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-[#F5EFE9]">
               <Image
                 src="/images/service_decor.png"
-                alt="Interior Decorating - Refuge Decor"
+                alt="Interior styled bed featuring layered neutral washed linens, throw pillows, and soft studio lighting"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
@@ -156,7 +156,7 @@ export default function Services() {
               >
                 <Image
                   src="/images/service_3d.png"
-                  alt="3D Space Preview - Refuge Decor"
+                  alt="Virtual 3D concept preview of a minimalist living space showing a sleek sofa and floor lamp in a warm plaster room"
                   fill
                   className="object-cover"
                 />

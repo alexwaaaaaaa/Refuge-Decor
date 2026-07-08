@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 export default function BeforeAfterSlider() {
   const [sliderPosition, setSliderPosition] = useState(50); // percentage (0 to 100)
@@ -54,6 +55,14 @@ export default function BeforeAfterSlider() {
   const beforeOpacity = Math.max(0, Math.min(1, (sliderPosition - 15) / 20));
   const afterOpacity = Math.max(0, Math.min(1, ((100 - sliderPosition) - 15) / 20));
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      setSliderPosition((prev) => Math.max(0, prev - 5));
+    } else if (e.key === "ArrowRight") {
+      setSliderPosition((prev) => Math.min(100, prev + 5));
+    }
+  };
+
   return (
     <section
       id="comparison"
@@ -80,15 +89,17 @@ export default function BeforeAfterSlider() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           ref={containerRef}
-          className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-2xl overflow-hidden shadow-xl select-none cursor-ew-resize border border-[#D8CBB8]/30 bg-zinc-200"
+          className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-2xl overflow-hidden shadow-xl select-none cursor-ew-resize border border-[#D8CBB8]/30 bg-[#F5EFE9]"
           onMouseDown={() => setIsDragging(true)}
           onTouchStart={() => setIsDragging(true)}
         >
           {/* AFTER Image (Bottom Layer) */}
-          <img
+          <Image
             src="/images/slider_after.png"
             alt="After staging - clean, minimalist, high-end ranch living room"
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            fill
+            sizes="(max-width: 768px) 100vw, 80vw"
+            className="object-cover pointer-events-none"
             draggable={false}
           />
           <div className="absolute inset-0 bg-[#FAF5F2]/5 pointer-events-none" />
@@ -100,10 +111,12 @@ export default function BeforeAfterSlider() {
               clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
             }}
           >
-            <img
+            <Image
               src="/images/slider_before.png"
               alt="Before staging - dark, outdated, cluttered living room"
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover pointer-events-none"
               draggable={false}
             />
             <div className="absolute inset-0 bg-black/10 pointer-events-none" />
@@ -133,7 +146,14 @@ export default function BeforeAfterSlider() {
 
           {/* Drag Handle featuring the Signature Horizon Line Motif inside the circle */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-[#FAF5F2] text-[#1C1C1C] border border-[#D8CBB8]/40 shadow-2xl flex flex-col items-center justify-center cursor-ew-resize hover:scale-105 active:scale-95 transition-transform z-20"
+            tabIndex={0}
+            role="slider"
+            aria-valuenow={Math.round(sliderPosition)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Staging transformation slider"
+            onKeyDown={handleKeyDown}
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-[#FAF5F2] text-[#1C1C1C] border border-[#D8CBB8]/40 shadow-2xl flex flex-col items-center justify-center cursor-ew-resize hover:scale-105 active:scale-95 transition-transform z-20 focus-visible:ring-2 focus-visible:ring-[#6B7051] focus-visible:outline-none"
             style={{ left: `${sliderPosition}%` }}
           >
             {/* The West Texas Horizon shape, miniature size */}

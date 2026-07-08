@@ -1,24 +1,28 @@
 {
   "pages": {
+    "/_not-found/page": [
+      "static/chunks/ff1a16fafef87110.js",
+      "static/chunks/7dd66bdf8a7e5707.js",
+      "static/chunks/bf72fe74299ef0fe.css",
+      "static/chunks/5912779665516f9e.css",
+      "static/chunks/ce31570267091d05.js",
+      "static/chunks/475395bf1b7ea74b.js",
+      "static/chunks/7625966760a80180.js",
+      "static/chunks/3e0f93b37bf948e9.js",
+      "static/chunks/turbopack-40fd6bae7bf1a8c2.js"
+    ],
     "/page": [
-      "static/chunks/node_modules_next_dist_8db7fb1f._.js",
-      "static/chunks/src_app_favicon_ico_mjs_243aa161._.js",
-      "static/chunks/[root-of-the-server]__07c53e45._.css",
-      "static/chunks/src_app_layout_tsx_0a548d63._.js",
-      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_3bc011cb.js",
-      "static/chunks/src_components_canvas_05dfa093._.js",
-      "static/chunks/src_components_8ade8332._.js",
-      "static/chunks/node_modules_0b541d08._.js",
-      "static/chunks/src_app_page_tsx_3bc011cb._.js",
-      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_57d40746._.js",
-      "static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js",
-      "static/chunks/node_modules_next_dist_compiled_next-devtools_index_a9cb0712.js",
-      "static/chunks/node_modules_next_dist_compiled_5150ccfd._.js",
-      "static/chunks/node_modules_next_dist_client_cf1d9188._.js",
-      "static/chunks/node_modules_next_dist_b0daae9a._.js",
-      "static/chunks/node_modules_@swc_helpers_cjs_b3dc30d6._.js",
-      "static/chunks/_a0ff3932._.js",
-      "static/chunks/turbopack-_cdba956c._.js"
+      "static/chunks/ff1a16fafef87110.js",
+      "static/chunks/7dd66bdf8a7e5707.js",
+      "static/chunks/bf72fe74299ef0fe.css",
+      "static/chunks/5912779665516f9e.css",
+      "static/chunks/51a7545ed631f64b.js",
+      "static/chunks/b216c26c38702fea.js",
+      "static/chunks/ce31570267091d05.js",
+      "static/chunks/475395bf1b7ea74b.js",
+      "static/chunks/7625966760a80180.js",
+      "static/chunks/3e0f93b37bf948e9.js",
+      "static/chunks/turbopack-40fd6bae7bf1a8c2.js"
     ]
   }
 }
