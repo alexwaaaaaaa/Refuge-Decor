@@ -8,6 +8,12 @@ import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Luxury interior design and home staging with West Texas soul. We create spaces that feel like home—warm, quiet, organic, architectural, and timeless.",
+};
 
 export default function Home() {
   return (

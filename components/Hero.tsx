@@ -4,6 +4,8 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import MagneticButton from "./ui/MagneticButton";
+import TextReveal from "./ui/TextReveal";
 
 export default function Hero() {
   const [isVideoReady, setIsVideoReady] = useState(false);
@@ -118,20 +120,20 @@ export default function Hero() {
               variants={contentVariants}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto"
             >
-              <a
-                href="#contact"
-                className="text-center font-sans font-semibold text-xs uppercase tracking-wider bg-[#201D18] text-[#F7F3EC] hover:bg-[#6B6F4C] px-8 py-4 rounded-full transition-all duration-300 shadow-sm active:scale-[0.98]"
+              <MagneticButton
+                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-center font-sans font-semibold text-xs uppercase tracking-wider bg-[#201D18] text-[#F7F3EC] hover:bg-[#6B6F4C] px-8 py-4 rounded-full transition-all duration-300 shadow-sm"
                 style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 Request Consultation
-              </a>
-              <a
-                href="#services"
-                className="text-center font-sans font-semibold text-xs uppercase tracking-wider text-[#201D18] hover:text-[#6B6F4C] px-8 py-4 rounded-full border border-[#D8CBB8] hover:border-[#6B6F4C]/45 hover:bg-[#EFE7D8]/30 transition-all duration-300 active:scale-[0.98]"
+              </MagneticButton>
+              <MagneticButton
+                onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-center font-sans font-semibold text-xs uppercase tracking-wider text-[#201D18] hover:text-[#6B6F4C] px-8 py-4 rounded-full border border-[#D8CBB8] hover:border-[#6B6F4C]/45 hover:bg-[#EFE7D8]/30 transition-all duration-300"
                 style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 Explore Services
-              </a>
+              </MagneticButton>
             </motion.div>
           </motion.div>
         </div>
@@ -153,6 +155,8 @@ export default function Hero() {
                 alt="Warm minimalist ranch living room staging - Refuge Decor"
                 fill
                 priority
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwC3g//2Q=="
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-[#201D18]/10" />

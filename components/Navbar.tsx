@@ -18,10 +18,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Portfolio", href: "/work" },
+    { name: "Blog", href: "/blog" },
+    { name: "Quiz", href: "/quiz" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -45,28 +47,28 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className="font-sans font-medium text-sm text-[#78716C] hover:text-[#6B6F4C] transition-colors relative group py-1"
               >
                 {link.name}
                 <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#6B6F4C] transition-all duration-300 group-hover:w-full" />
-              </a>
+              </Link>
             ))}
           </div>
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-4">
-            <a
-              href="#contact"
+            <Link
+              href="/consultation"
               className="hidden sm:inline-block font-sans font-semibold text-xs uppercase tracking-wider bg-[#201D18] text-[#F7F3EC] hover:bg-[#6B6F4C] hover:text-[#F7F3EC] px-6 py-3 rounded-full hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-sm"
               style={{ minWidth: 44, minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
             >
               Book Consultation
-            </a>
+            </Link>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -106,15 +108,15 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="flex flex-col items-center gap-6">
-              <a
-                href="#contact"
+            <div className="flex flex-col gap-6">
+              <Link
+                href="/consultation"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full text-center font-sans font-semibold text-sm uppercase tracking-wider bg-[#201D18] text-[#F7F3EC] hover:bg-[#6B6F4C] py-4 rounded-full transition-colors duration-300"
                 style={{ minHeight: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 Book Consultation
-              </a>
+              </Link>
               <span className="font-serif text-sm tracking-[0.2em] text-[#D8CBB8] font-semibold">
                 REFUGE DECOR & DESIGNS
               </span>
