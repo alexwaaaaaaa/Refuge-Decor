@@ -27,6 +27,22 @@ dist-ssr
 .next/
 out/
 
+# Agent skills and design system documentation
+.agents/
+design-system/
+docs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+
+
+
 # Environment variables
 .env
 .env.local
