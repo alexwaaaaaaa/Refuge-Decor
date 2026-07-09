@@ -16,35 +16,62 @@ function AnimatedCounter({
 }) {
   const shouldReduceMotion = useReducedMotion();
   const [count, setCount] = useState(0);
+  const animationStarted = useRef(false);
+  const fallbackTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!trigger) return;
-
-    if (shouldReduceMotion) {
-      setCount(value);
-      return;
+    // Cleanup any existing fallback timer
+    if (fallbackTimerRef.current) {
+      clearTimeout(fallbackTimerRef.current);
+      fallbackTimerRef.current = null;
     }
 
-    let startTime: number | null = null;
-    const duration = 1.6; // seconds
-    let frameId: number;
+    // If already animated to final value, do nothing
+    if (animationStarted.current) return;
 
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      
-      const currentCount = progress * value;
-      setCount(currentCount);
+    // If trigger is true, start the animation
+    if (trigger) {
+      animationStarted.current = true;
 
-      if (progress < 1) {
-        frameId = requestAnimationFrame(animate);
+      if (shouldReduceMotion) {
+        setCount(value);
+        return;
       }
-    };
 
-    frameId = requestAnimationFrame(animate);
+      let startTime: number | null = null;
+      const duration = 1.6;
+      let frameId: number;
+
+      const animate = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+
+        const currentCount = progress * value;
+        setCount(currentCount);
+
+        if (progress < 1) {
+          frameId = requestAnimationFrame(animate);
+        }
+      };
+
+      frameId = requestAnimationFrame(animate);
+      return () => {
+        if (frameId) cancelAnimationFrame(frameId);
+      };
+    }
+
+    // Fallback: if trigger never fires within 3s, set the value directly
+    // This ensures stats are always visible even if intersection observer fails
+    fallbackTimerRef.current = setTimeout(() => {
+      if (!animationStarted.current) {
+        animationStarted.current = true;
+        setCount(value);
+      }
+    }, 3000);
+
     return () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId);
+      if (fallbackTimerRef.current) {
+        clearTimeout(fallbackTimerRef.current);
       }
     };
   }, [trigger, value, shouldReduceMotion]);
