@@ -79,7 +79,7 @@ export default function Contact() {
   };
 
   const propertyOptions = [
-    { value: "", label: "Select Service Needed" },
+    { value: "", label: "" },
     { value: "Real Estate Staging", label: "Real Estate Staging" },
     { value: "Interior Decorating", label: "Interior Decorating" },
     { value: "Virtual 3D Design", label: "Virtual 3D Design" },
@@ -120,72 +120,100 @@ export default function Contact() {
                   noValidate
                 >
                   {/* Name Input */}
-                  <div className="relative">
+                  <div className="relative font-sans group">
                     <input
                       type="text"
                       name="name"
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Your Name"
-                      className="w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#FAF5F2] py-3 text-[#FAF5F2] placeholder-[#D8CBB8]/40 focus:outline-none transition-colors duration-300 text-sm font-sans"
+                      placeholder=" "
+                      className="peer w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#F7F3EC] py-3 text-sm text-[#F7F3EC] focus:outline-none transition-colors duration-300"
                     />
+                    <label
+                      htmlFor="name"
+                      className="absolute left-0 top-3 text-[#D8CBB8]/40 text-sm pointer-events-none transition-all duration-300 origin-[0_0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#F7F3EC] peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:text-[#F7F3EC]"
+                    >
+                      Your Name
+                    </label>
                     {errors.name && (
                       <p className="text-[#8C5A3C] text-xs mt-2 font-sans font-semibold">{errors.name}</p>
                     )}
                   </div>
 
                   {/* Email Input */}
-                  <div className="relative">
+                  <div className="relative font-sans group">
                     <input
                       type="email"
                       name="email"
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="Email Address"
-                      className="w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#FAF5F2] py-3 text-[#FAF5F2] placeholder-[#D8CBB8]/40 focus:outline-none transition-colors duration-300 text-sm font-sans"
+                      placeholder=" "
+                      className="peer w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#F7F3EC] py-3 text-sm text-[#F7F3EC] focus:outline-none transition-colors duration-300"
                     />
+                    <label
+                      htmlFor="email"
+                      className="absolute left-0 top-3 text-[#D8CBB8]/40 text-sm pointer-events-none transition-all duration-300 origin-[0_0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#F7F3EC] peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:text-[#F7F3EC]"
+                    >
+                      Email Address
+                    </label>
                     {errors.email && (
                       <p className="text-[#8C5A3C] text-xs mt-2 font-sans font-semibold">{errors.email}</p>
                     )}
                   </div>
 
                   {/* Property Type Dropdown */}
-                  <div className="relative font-sans">
+                  <div className="relative font-sans group">
                     <select
                       name="propertyType"
                       id="propertyType"
                       value={formData.propertyType}
                       onChange={handleChange}
-                      className="w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#FAF5F2] py-3 text-[#FAF5F2] focus:outline-none transition-colors duration-300 text-sm appearance-none cursor-pointer"
+                      className="peer w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#F7F3EC] py-3 text-sm text-[#F7F3EC] focus:outline-none transition-colors duration-300 appearance-none cursor-pointer"
                     >
                       {propertyOptions.map((opt) => (
                         <option
                           key={opt.value}
                           value={opt.value}
-                          className="bg-[#1C1C1C] text-[#FAF5F2]"
+                          className="bg-[#201D18] text-[#F7F3EC]"
                         >
                           {opt.label}
                         </option>
                       ))}
                     </select>
+                    <label
+                      htmlFor="propertyType"
+                      className={`absolute left-0 top-3 text-sm pointer-events-none transition-all duration-300 origin-[0_0] ${
+                        formData.propertyType 
+                          ? "scale-75 -translate-y-6 text-[#F7F3EC]" 
+                          : "text-[#D8CBB8]/40 scale-100 translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#F7F3EC]"
+                      }`}
+                    >
+                      Service Needed
+                    </label>
                     {errors.propertyType && (
                       <p className="text-[#8C5A3C] text-xs mt-2 font-sans font-semibold">{errors.propertyType}</p>
                     )}
                   </div>
 
                   {/* Message Input */}
-                  <div className="relative">
+                  <div className="relative font-sans group">
                     <textarea
                       name="message"
                       id="message"
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell us about your space"
-                      className="w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#FAF5F2] py-3 text-[#FAF5F2] placeholder-[#D8CBB8]/40 focus:outline-none transition-colors duration-300 text-sm resize-none font-sans"
+                      placeholder=" "
+                      className="peer w-full bg-transparent border-b border-[#D8CBB8]/30 focus:border-[#F7F3EC] py-3 text-sm text-[#F7F3EC] focus:outline-none transition-colors duration-300 resize-none"
                     />
+                    <label
+                      htmlFor="message"
+                      className="absolute left-0 top-3 text-[#D8CBB8]/40 text-sm pointer-events-none transition-all duration-300 origin-[0_0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#F7F3EC] peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:-translate-y-6 peer-[:not(:placeholder-shown)]:text-[#F7F3EC]"
+                    >
+                      Tell us about your space
+                    </label>
                     {errors.message && (
                       <p className="text-[#8C5A3C] text-xs mt-2 font-sans font-semibold">{errors.message}</p>
                     )}

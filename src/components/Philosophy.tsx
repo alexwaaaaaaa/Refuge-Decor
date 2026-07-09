@@ -8,11 +8,13 @@ function AnimatedCounter({
   suffix = "",
   decimals = 0,
   trigger,
+  delay = 0,
 }: {
   value: number;
   suffix?: string;
   decimals?: number;
   trigger: boolean;
+  delay?: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
   const [count, setCount] = useState(0);
@@ -31,33 +33,42 @@ function AnimatedCounter({
 
     // If trigger is true, start the animation
     if (trigger) {
-      animationStarted.current = true;
+      const runAnimation = () => {
+        animationStarted.current = true;
 
-      if (shouldReduceMotion) {
-        setCount(value);
-        return;
-      }
-
-      let startTime: number | null = null;
-      const duration = 1.6;
-      let frameId: number;
-
-      const animate = (timestamp: number) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-
-        const currentCount = progress * value;
-        setCount(currentCount);
-
-        if (progress < 1) {
-          frameId = requestAnimationFrame(animate);
+        if (shouldReduceMotion) {
+          setCount(value);
+          return;
         }
+
+        let startTime: number | null = null;
+        const duration = 1.6;
+        let frameId: number;
+
+        const animate = (timestamp: number) => {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+
+          const currentCount = progress * value;
+          setCount(currentCount);
+
+          if (progress < 1) {
+            frameId = requestAnimationFrame(animate);
+          }
+        };
+
+        frameId = requestAnimationFrame(animate);
+        return () => {
+          if (frameId) cancelAnimationFrame(frameId);
+        };
       };
 
-      frameId = requestAnimationFrame(animate);
-      return () => {
-        if (frameId) cancelAnimationFrame(frameId);
-      };
+      if (delay > 0) {
+        const timer = setTimeout(runAnimation, delay);
+        return () => clearTimeout(timer);
+      } else {
+        return runAnimation();
+      }
     }
 
     // Fallback: if trigger never fires within 3s, set the value directly
@@ -74,7 +85,7 @@ function AnimatedCounter({
         clearTimeout(fallbackTimerRef.current);
       }
     };
-  }, [trigger, value, shouldReduceMotion]);
+  }, [trigger, value, shouldReduceMotion, delay]);
 
   return (
     <span className="font-serif text-4xl md:text-5xl text-[#1C1C1C] font-normal">
@@ -154,10 +165,11 @@ export default function Philosophy() {
               {stats.map((stat, idx) => (
                 <div key={idx} className="flex flex-col">
                   <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    decimals={stat.decimals || 0}
-                    trigger={isInView}
+                     value={stat.value}
+                     suffix={stat.suffix}
+                     decimals={stat.decimals || 0}
+                     trigger={isInView}
+                     delay={idx * 120}
                   />
                   <span className="font-sans text-xs uppercase tracking-wider text-[#78716C]/60 font-semibold mt-2">
                     {stat.label}

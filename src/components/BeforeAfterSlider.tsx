@@ -55,6 +55,13 @@ export default function BeforeAfterSlider() {
   const beforeOpacity = Math.max(0, Math.min(1, (sliderPosition - 15) / 20));
   const afterOpacity = Math.max(0, Math.min(1, ((100 - sliderPosition) - 15) / 20));
 
+  // Dynamically interpolate background color from surface (#EFE7D8) to canvas (#F7F3EC) as user drags from center (50%)
+  const ratio = Math.abs(50 - sliderPosition) / 50; // 0 at center, 1 at edges
+  const r = Math.round(239 + (247 - 239) * ratio);
+  const g = Math.round(231 + (243 - 231) * ratio);
+  const b = Math.round(216 + (236 - 216) * ratio);
+  const bgStyle = { backgroundColor: `rgba(${r}, ${g}, ${b}, 0.3)` };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") {
       setSliderPosition((prev) => Math.max(0, prev - 5));
@@ -67,7 +74,8 @@ export default function BeforeAfterSlider() {
     <section
       id="comparison"
       ref={sectionRef}
-      className="py-24 md:py-32 bg-[#F5EFE9]/30 border-t border-[#D8CBB8]/20"
+      className="py-24 md:py-32 border-t border-[#D8CBB8]/20 transition-colors duration-150"
+      style={bgStyle}
     >
       <div className="container-custom">
         {/* Header */}

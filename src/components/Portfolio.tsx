@@ -111,14 +111,21 @@ export default function Portfolio() {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 text-xs uppercase tracking-wider font-semibold rounded-full transition-all duration-300 ${
+                className={`relative px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-colors duration-300 ${
                   activeCategory === category
-                    ? "bg-[#1C1C1C] text-[#FAF5F2] shadow-sm cursor-default"
-                    : "text-[#78716C] hover:text-[#1C1C1C] hover:bg-[#F5EFE9]/50"
+                    ? "text-[#1C1C1C] cursor-default"
+                    : "text-[#78716C] hover:text-[#1C1C1C]"
                 }`}
                 style={{ minWidth: 44, minHeight: 44 }}
               >
-                {category}
+                <span className="relative z-10">{category}</span>
+                {activeCategory === category && (
+                  <motion.div
+                    layoutId="activeCategoryUnderline"
+                    className="absolute bottom-0 left-4 right-4 h-0.5 bg-[#1C1C1C]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </button>
             ))}
           </div>
@@ -144,14 +151,19 @@ export default function Portfolio() {
                 onClick={() => setSelectedItem(item)}
                 className={`break-inside-avoid relative rounded-2xl overflow-hidden cursor-zoom-in group border border-[#D8CBB8]/25 shadow-sm hover:shadow-md transition-all duration-500 ${item.aspect} bg-[#F5EFE9] mb-6 focus-visible:ring-2 focus-visible:ring-[#6B7051] focus-visible:outline-none w-full text-left`}
               >
-                {/* Image */}
-                <Image
-                  src={item.image}
-                  alt={item.desc}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-                />
+                {/* Image Container with Shared Layout ID */}
+                <motion.div
+                  layoutId={`portfolio-image-${item.id}`}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.desc}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                  />
+                </motion.div>
 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1C]/90 via-[#1C1C1C]/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-left">
@@ -197,14 +209,20 @@ export default function Portfolio() {
                 className="max-w-4xl w-full bg-[#FAF5F2] rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-[#D8CBB8]/20"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Left: Image */}
-                <div className="md:w-3/5 bg-[#F5EFE9] relative aspect-square md:aspect-auto md:min-h-[500px]">
-                  <Image
-                    src={selectedItem.image}
-                    alt={selectedItem.desc}
-                    fill
-                    className="object-cover"
-                  />
+                {/* Left: Image Container with Shared Layout ID */}
+                <div className="md:w-3/5 bg-[#F5EFE9] relative aspect-square md:aspect-auto md:min-h-[500px] overflow-hidden">
+                  <motion.div
+                    layoutId={`portfolio-image-${selectedItem.id}`}
+                    className="absolute inset-0 w-full h-full"
+                  >
+                    <Image
+                      src={selectedItem.image}
+                      alt={selectedItem.desc}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </motion.div>
                 </div>
 
                 {/* Right: Info */}

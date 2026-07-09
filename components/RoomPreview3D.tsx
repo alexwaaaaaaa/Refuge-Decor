@@ -3,7 +3,8 @@
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { DoubleSide, PCFSoftShadowMap } from "three";
+import * as THREE from "three";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 type RoomPreview3DProps = {
@@ -161,7 +162,7 @@ function ProceduralFurniture() {
             roughness={0.7}
             emissive="#FFE8C4"
             emissiveIntensity={0.6}
-            side={DoubleSide}
+            side={THREE.DoubleSide}
           />
         </mesh>
       </group>
@@ -206,11 +207,15 @@ export default function RoomPreview3D({ modelUrl, onCreated }: RoomPreview3DProp
       <Canvas
         dpr={[1, 2]}
         shadows
-        gl={{ antialias: true, powerPreference: "high-performance" }}
+        gl={{ 
+          antialias: true, 
+          powerPreference: "high-performance",
+          toneMapping: THREE.ACESFilmicToneMapping 
+        }}
         camera={{ position: [3.2, 1.8, 3.2], fov: 42 }}
         onCreated={({ gl }) => {
           gl.shadowMap.enabled = true;
-          gl.shadowMap.type = PCFSoftShadowMap;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
           onCreated?.();
         }}
       >
@@ -227,6 +232,16 @@ export default function RoomPreview3D({ modelUrl, onCreated }: RoomPreview3DProp
             dampingFactor={reduceMotion ? 0 : 0.08}
             onStart={() => setHasInteracted(true)}
           />
+          {/* Restrained Bloom effect only on desktop */}
+          {!mobileOrTouch && (
+            <EffectComposer>
+              <Bloom
+                luminanceThreshold={0.9}
+                intensity={0.25}
+                mipmapBlur
+              />
+            </EffectComposer>
+          )}
         </Suspense>
       </Canvas>
       <div
