@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #F7F3EC;
+  --color-cream: #F7F3EC;
+  --color-surface: #EFE7D8;
+  --color-ink: #201D18;
+  --color-charcoal-black: #201D18;
+  --color-muted-text: #78716C;
+  --color-leather: #8C5A3C;
+  --color-sage: #6B6F4C;
+  --color-olive: #6B6F4C;
+  --color-stone: #D8CBB8;
+  --color-border-beige: #D8CBB8;
+  
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), Arial, sans-serif;
+  
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  
+  --animate-bounce-slow: bounce 2s infinite;
+  
+  --letter-spacing-eyebrow: 0.2em;
+}
+
+html {
+  background: var(--color-canvas);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+/* Custom design system utility classes in vanilla CSS */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-eyebrow);
+  color: var(--color-olive);
+  font-weight: 600;
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Custom Selection and Scrollbar */
+::selection {
+  background-color: var(--color-olive);
+  color: var(--color-cream);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-olive);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52563f;
+}
+
+section {
+  scroll-margin-top: 80px;
+}

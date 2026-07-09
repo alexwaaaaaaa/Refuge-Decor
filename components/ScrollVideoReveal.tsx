@@ -207,7 +207,7 @@ export default function ScrollVideoReveal({
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#1C1C1C]"
+      className="relative bg-[#201D18]"
       style={{ height: useScrubMode ? "300vh" : "auto" }}
     >
       {/* Sticky video container — pinned while outer section scrolls */}
@@ -221,8 +221,8 @@ export default function ScrollVideoReveal({
       >
         {/* Loading spinner */}
         {!isVideoLoaded && !videoError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#1C1C1C]">
-            <div className="w-10 h-10 border-2 border-[#FAF5F2]/20 border-t-[#FAF5F2] rounded-full animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center bg-[#201D18]">
+            <div className="w-10 h-10 border-2 border-[#F7F3EC]/20 border-t-[#F7F3EC] rounded-full animate-spin" />
           </div>
         )}
 
@@ -268,7 +268,7 @@ export default function ScrollVideoReveal({
                 {text.eyebrow}
               </span>
             )}
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#FAF5F2] font-normal leading-tight max-w-3xl">
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#F7F3EC] font-normal leading-tight max-w-3xl">
               {text.heading}
             </h2>
             {text.body && (
@@ -279,7 +279,7 @@ export default function ScrollVideoReveal({
             {text.cta && (
               <Link
                 href="#portfolio"
-                className="mt-8 pointer-events-auto inline-flex items-center gap-2 px-6 py-3 border border-[#FAF5F2]/30 rounded-full text-[#FAF5F2] font-sans font-semibold text-xs uppercase tracking-wider hover:bg-[#FAF5F2]/10 transition-colors"
+                className="mt-8 pointer-events-auto inline-flex items-center gap-2 px-6 py-3 border border-[#F7F3EC]/30 rounded-full text-[#F7F3EC] font-sans font-semibold text-xs uppercase tracking-wider hover:bg-[#F7F3EC]/10 transition-colors"
               >
                 {text.cta}
               </Link>
